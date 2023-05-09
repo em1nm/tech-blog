@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-auto">
+    <h2 class="welcome">{{name}}</h2>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Create a New Post:</h3>
+
+    <form class="form">
+      <div class="form-group">
+        <label for="post-title">Title:</label>
+        <input class="form-input" type="text" id="post-title" name="post-title" />
+      </div>
+      <div class="form-group">
+        <label for="post-desc">Description:</label>
+        <input class="form-input" type="text" id="post-desc" name="post-desc" />
+      </div>
+
+    </form>
+     <button id='create' type="submit" class="btn btn-primary">Create</button>
+  </div>
+
+  {{#if posts.length}}
+  <div class="col-md-6 project-list">
+    <h3>Posts:</h3>
+
+    {{#each posts as |post| }}
+<div class="project-box">
+  <div class="box-header">
+    <h2 class="postname">{{post.post_name}}</h2>
+    <p>{{format_date post.date_created}}</p>
+
+
+     <div class="username">
+      <a href="/user/{{post.user_id}}">{{post.user.name}}</a>
+    </div>
+  </div>
+  <div class="box-description">
+    <p>{{post.description}}</p>
+  </div>
+  <div class="comment-section"><h3>Comments</h3>
+  {{#each comments as |comment| }}
+      
+        <div class="comment">  <a href="/user/{{comment.user_id}}">{{comment.name}}</a>
+        <p>{{comment.comment}}</p> </div>
+      {{/each}}
+      <form class="comment-form">
+      <textarea class="user-comment" placeholder="Write a comment"></textarea>
+      <button class="comment-button" data-id="{{post.id}}">Submit</button>
+    </form>
+    <button class="delete-btn" data-id="{{post.id}}">Delete</button>
+  </div>
+  </div>
+{{/each}}
+  </div>
+  {{/if}}
+</div>
+
+<script src="./js/profile.js"></script>
